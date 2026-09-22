@@ -1,0 +1,256 @@
+/* ===========================================================
+   Melek Gender — style.css
+   Palet warna & token desain mengikuti mockup Tugas 2.
+   =========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --ink:#1C1917;
+  --ink-soft:#57534E;
+  --cream:#FAF7EF;
+  --paper:#FFFFFF;
+  --green-deep:#14532D;
+  --green:#1E7A42;
+  --green-soft:#DCEFE1;
+  --gold:#C89116;
+  --gold-soft:#F5E6C4;
+  --line:#E4DFD3;
+  --radius:14px;
+  --max-w:480px;
+}
+
+/* =====================================================
+   Splash screen (animasi loading awal, mirip Instagram)
+   ===================================================== */
+.splash{
+  position:fixed; inset:0; z-index:9999;
+  background:var(--paper);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+  transition:opacity .45s ease, visibility .45s ease;
+}
+.splash.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+.splash-logo{ width:72px; height:72px; animation:splashPulse 1.15s ease-in-out infinite; }
+.splash-text{
+  font-family:"Poppins","DejaVu Sans",sans-serif; font-weight:700; font-size:15px;
+  color:var(--green-deep); opacity:0; animation:splashFadeIn .5s ease .25s forwards;
+}
+@keyframes splashPulse{
+  0%,100%{ transform:scale(1); opacity:.88; }
+  50%{ transform:scale(1.1); opacity:1; }
+}
+@keyframes splashFadeIn{ to{ opacity:1; } }
+
+/* =====================================================
+   Reveal-on-scroll untuk blok teks (judul, paragraf, kartu)
+   Elemen diberi class="reveal", lalu MG.initScrollReveal()
+   menambah class "in-view" saat elemen masuk viewport.
+   ===================================================== */
+.reveal{
+  opacity:0; transform:translateY(14px);
+  transition:opacity .55s ease, transform .55s ease;
+}
+.reveal.in-view{ opacity:1; transform:translateY(0); }
+
+/* =====================================================
+   Slot media (infografis / gambar / video) di halaman modul
+   ===================================================== */
+.media-embed{
+  margin:18px 0; border-radius:var(--radius); overflow:hidden;
+}
+.media-embed img, .media-embed video{
+  width:100%; display:block; border-radius:var(--radius); background:var(--green-soft);
+}
+.media-caption{
+  font-size:12px; color:var(--ink-soft); margin-top:7px; text-align:center; line-height:1.4;
+}
+.media-slot{
+  margin:18px 0; padding:22px 16px; border-radius:var(--radius);
+  border:1.6px dashed var(--line); background:#FCFBF7;
+  display:flex; flex-direction:column; align-items:center; gap:8px;
+  text-align:center; color:var(--ink-soft); font-size:12.5px; line-height:1.5;
+}
+.media-slot svg{ width:28px; height:28px; color:var(--ink-soft); }
+
+@media (prefers-reduced-motion: reduce){
+  .splash-logo{ animation:none; }
+  .splash-text{ animation:none; opacity:1; }
+  .reveal{ opacity:1; transform:none; transition:none; }
+}
+
+*{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+body{
+  font-family:"Inter","DejaVu Sans",sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  line-height:1.55;
+  min-height:100vh;
+}
+
+h1,h2,h3,.brand-name,.btn,.mod-txt-t,.h-title,.about-name,.cert-title{
+  font-family:"Poppins","DejaVu Sans",sans-serif;
+}
+
+.app{
+  max-width:var(--max-w);
+  margin:0 auto;
+  min-height:100vh;
+  background:var(--paper);
+  display:flex;
+  flex-direction:column;
+  box-shadow:0 0 40px rgba(20,83,45,0.06);
+}
+
+.pad{ padding:22px 20px 18px; flex:1; }
+
+/* ---- Top brand row ---- */
+.brand-row{ display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+.brand-row img{ width:34px; height:34px; object-fit:contain; }
+.brand-name{ font-weight:600; font-size:16px; color:var(--green-deep); }
+
+/* ---- Sub-page header (back arrow + title) ---- */
+.subhead{ display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.subhead a{ text-decoration:none; }
+.backarrow{
+  width:32px; height:32px; border-radius:9px; background:#F1EEE5;
+  display:flex; align-items:center; justify-content:center; flex-shrink:0;
+}
+.subhead h1{ font-size:19px; margin:0; }
+
+/* ---- Typography helpers ---- */
+h1.h-title{ font-size:22px; font-weight:600; margin:0 0 8px; line-height:1.3; }
+p.h-sub{ color:var(--ink-soft); font-size:14px; margin:0 0 20px; }
+.crumb{ font-size:12px; font-weight:600; color:var(--green); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px; }
+
+/* ---- Buttons ---- */
+.btn{
+  display:block; width:100%; text-align:center; text-decoration:none;
+  font-weight:600; font-size:15px; padding:14px 0; border-radius:12px;
+  border:none; cursor:pointer; margin-top:10px;
+}
+.btn-primary{ background:var(--green); color:#fff; }
+.btn-primary:hover{ background:var(--green-deep); }
+.btn-primary:disabled{ background:#B9CFC0; cursor:not-allowed; }
+.btn-ghost{ background:transparent; color:var(--green-deep); border:1.6px solid var(--green); }
+.btn-row{ display:flex; gap:10px; }
+.btn-row .btn{ flex:1; }
+
+/* ---- Forms ---- */
+label.field-label{ display:block; font-size:13px; font-weight:600; color:var(--ink-soft); margin:16px 0 6px; }
+.field{
+  width:100%; border:1.6px solid var(--line); border-radius:10px; padding:12px 14px;
+  font-size:15px; font-family:inherit; color:var(--ink); background:#FCFBF8;
+}
+.field:focus{ outline:none; border-color:var(--green); }
+.consent-row{ display:flex; gap:10px; margin:20px 0; align-items:flex-start; }
+.consent-row input{ margin-top:3px; width:17px; height:17px; accent-color:var(--green); flex-shrink:0; }
+.consent-row label{ font-size:13px; color:var(--ink-soft); line-height:1.5; }
+.consent-row a{ color:var(--green-deep); font-weight:600; }
+.err{ color:#B3261E; font-size:12.5px; margin-top:6px; display:none; }
+
+/* ---- Hero illustration ---- */
+.illus{
+  width:100%; aspect-ratio:16/9; border-radius:16px; background:var(--green-soft);
+  display:flex; align-items:center; justify-content:center; margin-bottom:22px;
+}
+.illus svg{ width:64px; height:64px; }
+
+/* ---- Nav links row ---- */
+.navlinks{ display:flex; gap:18px; justify-content:center; margin-top:20px; flex-wrap:wrap; }
+.navlinks a{ font-size:12.5px; color:var(--ink-soft); text-decoration:none; border-bottom:1px solid var(--line); padding-bottom:2px; }
+
+/* ---- Dashboard module cards ---- */
+.greet{ font-weight:600; font-size:20px; margin-bottom:2px; }
+.greet-sub{ font-size:13px; color:var(--ink-soft); margin-bottom:22px; }
+.mod-card{
+  display:flex; align-items:center; gap:12px; padding:13px 14px; border-radius:12px;
+  margin-bottom:10px; border:1.6px solid var(--line); text-decoration:none; color:inherit;
+}
+.mod-card.done{ background:var(--green-soft); border-color:var(--green); }
+.mod-dot{
+  width:28px; height:28px; border-radius:50%; flex-shrink:0; display:flex;
+  align-items:center; justify-content:center; font-size:13px; font-weight:700; font-family:"Poppins",sans-serif;
+}
+.mod-dot.done{ background:var(--green); color:#fff; }
+.mod-dot.todo{ background:var(--line); color:var(--ink-soft); }
+.mod-txt-t{ font-size:14px; font-weight:600; }
+.mod-txt-s{ font-size:12px; color:var(--ink-soft); }
+
+/* ---- Sticky bottom tab bar ----
+   Penting: position:sticky dipasang di #tabbar-slot (flex item
+   langsung di dalam .app), BUKAN di .tabbar itu sendiri. Kalau
+   dipasang di .tabbar, elemen itu terjebak di dalam wrapper kecil
+   yang tingginya cuma sebesar dirinya sendiri, sehingga tidak
+   pernah benar-benar "menempel" saat halaman discroll. */
+#tabbar-slot{ position:sticky; bottom:0; z-index:20; }
+.tabbar{
+  display:flex; border-top:1px solid var(--line); background:var(--paper);
+  padding:8px 4px calc(10px + env(safe-area-inset-bottom,0px));
+}
+.tab{ flex:1; display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; color:var(--ink-soft); }
+.tab svg{ width:22px; height:22px; }
+.tab .tab-label{ font-size:10px; font-weight:500; font-family:"Poppins",sans-serif; }
+.tab.active{ color:var(--green); font-weight:700; }
+.tab.active .tab-label{ font-weight:700; }
+
+/* ---- Content blocks (module reading material) ---- */
+.content-block p{ font-size:14.5px; color:var(--ink); margin-bottom:14px; }
+
+/* ---- Quiz ---- */
+.progress-bar{ height:7px; background:var(--line); border-radius:6px; overflow:hidden; margin-bottom:18px; }
+.progress-fill{ height:100%; background:var(--gold); transition:width .2s; }
+.q-text{ font-weight:600; font-size:15px; margin-bottom:12px; }
+.opt{
+  display:flex; align-items:center; gap:10px; border:1.6px solid var(--line); border-radius:11px;
+  padding:12px 14px; margin-bottom:9px; cursor:pointer; font-size:14px;
+}
+.opt.sel{ border-color:var(--green); background:var(--green-soft); }
+.opt input{ accent-color:var(--green); width:16px; height:16px; }
+.result-box{ text-align:center; padding:24px 10px; }
+.result-score{ font-size:38px; font-weight:700; color:var(--green-deep); font-family:"Poppins",sans-serif; }
+
+/* ---- Kebijakan / Tentang ---- */
+.policy-p{ font-size:14px; color:var(--ink-soft); margin-bottom:14px; }
+.policy-p b{ color:var(--ink); }
+.about-logo{ width:80px; margin:8px auto 14px; display:block; }
+.about-name{ text-align:center; font-weight:600; font-size:18px; }
+.about-ver{ text-align:center; font-size:12px; color:var(--ink-soft); margin-bottom:20px; }
+.about-p{ text-align:center; font-size:13.5px; color:var(--ink-soft); margin-bottom:14px; }
+.about-foot{ font-size:11px; color:var(--ink-soft); text-align:center; margin-top:20px; padding-top:14px; border-top:1px solid var(--line); }
+
+/* ---- Galeri buku ---- */
+.book-card{ display:flex; gap:13px; padding:13px 0; border-bottom:1px solid var(--line); align-items:flex-start; }
+.book-cover{ width:52px; height:70px; border-radius:6px; flex-shrink:0; overflow:hidden; background:var(--green-soft); box-shadow:0 2px 5px rgba(20,83,45,0.12); }
+.book-cover img{ width:100%; height:100%; object-fit:cover; display:block; }
+.book-cover-fallback{ width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:var(--green-soft); }
+.book-cover-fallback.gold{ background:var(--gold-soft); }
+.book-cover-fallback svg{ width:20px; height:20px; }
+.book-info{ flex:1; }
+.book-title{ font-weight:600; font-size:13.5px; line-height:1.35; }
+.book-author{ font-size:12px; color:var(--ink-soft); margin-top:4px; }
+.book-link{
+  display:inline-block; margin-top:7px; font-size:11.5px; font-weight:600;
+  color:var(--green-deep); text-decoration:none; border-bottom:1.4px solid var(--green);
+}
+.book-link:hover{ color:var(--green); }
+
+/* ---- Sertifikat ---- */
+.cert{
+  border:2.5px solid var(--gold); border-radius:16px;
+  background:linear-gradient(180deg,#FFFDF7 0%, var(--gold-soft) 140%);
+  text-align:center; padding:36px 22px; margin-bottom:20px;
+}
+.cert-eyebrow{ font-size:11px; letter-spacing:.06em; color:var(--gold); font-weight:700; }
+.cert-title{ font-weight:700; font-size:22px; color:var(--green-deep); margin:10px 0 6px; }
+.cert-name{ font-weight:600; font-size:19px; margin:16px 0 4px; border-bottom:2px solid var(--gold); display:inline-block; padding-bottom:8px; }
+.cert-ranting{ font-size:12.5px; color:var(--ink-soft); margin-bottom:18px; }
+.cert-desc{ font-size:12px; color:var(--ink-soft); }
+.cert-date{ font-size:11px; color:var(--ink-soft); margin-top:18px; }
+
+@media print{
+  body *{ visibility:hidden; }
+  #cert-print, #cert-print *{ visibility:visible; }
+  #cert-print{ position:absolute; top:0; left:0; width:100%; }
+  .tabbar,.btn,.subhead{ display:none !important; }
+}

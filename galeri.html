@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galeri Referensi — Melek Gender</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  // Fallback ikon buku kalau file cover di assets/covers/ belum ada
+  // atau gagal dimuat — dipanggil lewat atribut onerror pada <img>.
+  // Didefinisikan di <head> (bukan di bawah <body>) supaya sudah
+  // siap sebelum browser sempat mencoba memuat gambar covernya.
+  function handleCoverError(imgEl, gold) {
+    const wrap = document.createElement('div');
+    wrap.className = 'book-cover-fallback' + (gold ? ' gold' : '');
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', gold ? '#C89116' : '#14532D');
+    svg.setAttribute('stroke-width', '1.8');
+    const p1 = document.createElementNS(ns, 'path');
+    p1.setAttribute('d', 'M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4z');
+    const p2 = document.createElementNS(ns, 'path');
+    p2.setAttribute('d', 'M20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6z');
+    svg.appendChild(p1); svg.appendChild(p2);
+    wrap.appendChild(svg);
+    imgEl.replaceWith(wrap);
+  }
+</script>
+</head>
+<body>
+<div class="app">
+  <div class="pad">
+    <div class="subhead">
+      <a href="javascript:history.back()" class="backarrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#57534E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </a>
+      <h1>Galeri Referensi</h1>
+    </div>
+    <p class="h-sub reveal" style="margin-top:-10px;">Bacaan lanjutan seputar Studi Gender I, untuk kamu yang ingin belajar lebih dalam.</p>
+
+    <!-- ============================================================
+         CARA MENGGANTI COVER BUKU:
+         Taruh file gambar cover (format .jpg/.png, disarankan rasio
+         3:4, misal 300x400px) di folder assets/covers/, lalu ganti
+         atribut src di bawah, contoh: assets/covers/fiqh-perempuan.jpg
+         Kalau gambar belum ada / gagal dimuat, otomatis akan tampil
+         ikon buku polos sebagai cadangan (lihat atribut onerror).
+
+         CARA MENGGANTI LINK SUMBER:
+         Ganti href pada tiap <a class="book-link"> dengan tautan
+         asli (toko buku, perpustakaan digital, atau PDF resmi) kalau
+         sudah punya. Sementara ini memakai link pencarian Google
+         Books supaya selalu valid walau Anda belum punya link pasti.
+    ============================================================ -->
+
+    <div class="book-card reveal">
+      <div class="book-cover">
+        <img src="assets/covers/fiqh-perempuan.jpg" alt="Cover buku Fiqh Perempuan"
+             onerror="handleCoverError(this)">
+      </div>
+      <div class="book-info">
+        <div class="book-title">Fiqh Perempuan: Refleksi Kiai atas Wacana Agama dan Gender</div>
+        <div class="book-author">K.H. Husein Muhammad · LKiS, 2001</div>
+        <a class="book-link" target="_blank" rel="noopener"
+           href="https://www.google.com/search?tbm=bks&q=Fiqh+Perempuan+Husein+Muhammad+LKiS">
+          Cari buku ini ↗
+        </a>
+      </div>
+    </div>
+
+    <div class="book-card reveal">
+      <div class="book-cover gold">
+        <img src="assets/covers/nuansa-fiqih-sosial.jpg" alt="Cover buku Nuansa Fiqih Sosial"
+             onerror="handleCoverError(this, true)">
+      </div>
+      <div class="book-info">
+        <div class="book-title">Nuansa Fiqih Sosial</div>
+        <div class="book-author">K.H. M.A. Sahal Mahfudh · LKiS, 1994</div>
+        <a class="book-link" target="_blank" rel="noopener"
+           href="https://www.google.com/search?tbm=bks&q=Nuansa+Fiqih+Sosial+Sahal+Mahfudh">
+          Cari buku ini ↗
+        </a>
+      </div>
+    </div>
+
+    <div class="book-card reveal">
+      <div class="book-cover">
+        <img src="assets/covers/analisis-gender.jpg" alt="Cover buku Analisis Gender dan Transformasi Sosial"
+             onerror="handleCoverError(this)">
+      </div>
+      <div class="book-info">
+        <div class="book-title">Analisis Gender dan Transformasi Sosial</div>
+        <div class="book-author">Dr. Mansour Fakih · Pustaka Pelajar, 1996</div>
+        <a class="book-link" target="_blank" rel="noopener"
+           href="https://www.google.com/search?tbm=bks&q=Analisis+Gender+dan+Transformasi+Sosial+Mansour+Fakih">
+          Cari buku ini ↗
+        </a>
+      </div>
+    </div>
+
+    <div class="book-card reveal" style="border-bottom:none;">
+      <div class="book-cover gold">
+        <img src="assets/covers/sarinah.jpg" alt="Cover buku Sarinah"
+             onerror="handleCoverError(this, true)">
+      </div>
+      <div class="book-info">
+        <div class="book-title">Sarinah</div>
+        <div class="book-author">Ir. Soekarno</div>
+        <a class="book-link" target="_blank" rel="noopener"
+           href="https://www.google.com/search?tbm=bks&q=Sarinah+Soekarno">
+          Cari buku ini ↗
+        </a>
+      </div>
+    </div>
+  </div>
+  <div id="tabbar-slot"></div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  // Galeri bisa diakses baik sebelum maupun sesudah identitas terisi,
+  // jadi tab bar hanya ditampilkan kalau kader sudah "login".
+  if (MG.hasIdentity()) renderTabbar('galeri');
+  initScrollReveal();
+</script>
+</body>
+</html>

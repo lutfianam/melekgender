@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluasi Akhir — Melek Gender</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <div class="pad">
+    <div class="crumb">Evaluasi Akhir</div>
+    <h1 class="h-title" style="font-size:19px;">15 Soal — Semua Materi Studi Gender I</h1>
+    <p class="h-sub">Kerjakan sejujur-jujurnya ya. Nilai kelulusan minimal 70% (11 dari 15 benar).</p>
+
+    <div id="locked-message" style="display:none;">
+      <p style="color:#B3261E; font-size:14px;">Selesaikan dulu keempat modul sebelum mengikuti evaluasi akhir.</p>
+      <button class="btn btn-primary" onclick="location.href='dashboard.html'">Kembali ke Beranda</button>
+    </div>
+
+    <div id="quiz-mount"></div>
+    <div id="result-mount" style="display:none;"></div>
+  </div>
+  <div id="tabbar-slot"></div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  MG.requireIdentity();
+
+  if (!MG.allModulesDone()) {
+    document.getElementById('locked-message').style.display = 'block';
+  } else {
+    const PASS_RATIO = 0.7; // TODO GANTI kalau mau ubah standar kelulusan (0.7 = 70%)
+
+    const questions = [
+      // Pengertian Gender dan Seks (3 soal)
+      { q: 'Perbedaan yang bersifat kodrati dan tidak berubah antara laki-laki dan perempuan disebut...', options: ['Gender', 'Seks', 'Peran sosial', 'Stereotip'], correct: 1 },
+      { q: 'Gender disebut konstruksi sosial karena...', options: ['Ditentukan sejak lahir', 'Dibentuk budaya dan bisa berubah', 'Sama di semua tempat', 'Ditentukan hormon'], correct: 1 },
+      { q: 'Contoh ketidakadilan gender menurut Mansour Fakih ADALAH, kecuali...', options: ['Subordinasi', 'Stereotip', 'Kesetaraan', 'Beban ganda'], correct: 2 },
+      // Pengalaman Biologis Perempuan (3 soal)
+      { q: 'Berikut termasuk pengalaman biologis khas perempuan, kecuali...', options: ['Menstruasi', 'Melahirkan', 'Menyusui', 'Memimpin rapat'], correct: 3 },
+      { q: 'Sikap yang tepat terhadap kader yang sedang nifas adalah...', options: ['Menganggapnya malas', 'Menghormatinya sebagai masa pemulihan', 'Mengucilkannya', 'Mengabaikannya'], correct: 1 },
+      { q: 'Islam memberi perhatian pada kondisi biologis perempuan lewat...', options: ['Ketentuan fikih tentang haid dan nifas', 'Tidak membahasnya sama sekali', 'Melarang membicarakannya', 'Menganggapnya aib'], correct: 0 },
+      // Sejarah Munculnya Gender (3 soal)
+      { q: 'R.A. Kartini memperjuangkan hak perempuan dalam hal...', options: ['Pendidikan', 'Jabatan militer', 'Kepemilikan tanah', 'Hak pilih presiden'], correct: 0 },
+      { q: 'Buku "Sarinah" ditulis oleh...', options: ['R.A. Kartini', 'Ir. Soekarno', 'Cut Nyak Dien', 'Dewi Sartika'], correct: 1 },
+      { q: 'Tokoh perempuan penting dalam sejarah pergerakan perempuan NU adalah...', options: ['Hj. Umroh Mahfudzoh', 'Rohana Kudus', 'Cut Meutia', 'Maria Walanda Maramis'], correct: 0 },
+      // Pandangan Gender dalam Islam (3 soal)
+      { q: 'QS Al-Hujurat: 13 menegaskan kemuliaan seseorang ditentukan oleh...', options: ['Jenis kelamin', 'Ketakwaan', 'Kekayaan', 'Keturunan'], correct: 1 },
+      { q: 'QS Ar-Rum: 21 menjelaskan tujuan penciptaan pasangan untuk...', options: ['Ketenteraman dan kasih sayang', 'Persaingan', 'Dominasi', 'Perpisahan'], correct: 0 },
+      { q: 'K.H. Husein Muhammad menunjukkan keadilan gender bisa digali dari...', options: ['Budaya luar semata', 'Fikih klasik yang dibaca kontekstual', 'Hukum adat', 'Tradisi non-Islam'], correct: 1 },
+      // Studi Kasus dan Refleksi (3 soal)
+      { q: 'Seorang kader melarang temannya yang perempuan menjadi ketua ranting hanya karena ia perempuan. Sikap ini termasuk...', options: ['Kesetaraan gender', 'Subordinasi/ketidakadilan gender', 'Hal yang wajar', 'Ajaran agama'], correct: 1 },
+      { q: 'Seorang kader laki-laki membantu temannya yang sedang haid untuk istirahat tanpa menstigma. Sikap ini mencerminkan...', options: ['Ketidakpedulian', 'Empati dan pemahaman gender yang baik', 'Sikap berlebihan', 'Melanggar aturan'], correct: 1 },
+      { q: 'Manfaat memahami Studi Gender I bagi kader MAKESTA adalah...', options: ['Supaya bisa mendebat orang', 'Membangun relasi yang adil dan setara di organisasi & masyarakat', 'Tidak ada manfaatnya', 'Hanya untuk kader perempuan'], correct: 1 },
+    ];
+
+    renderQuiz(document.getElementById('quiz-mount'), questions, (score, total) => {
+      const passed = score / total >= PASS_RATIO;
+      document.getElementById('quiz-mount').style.display = 'none';
+      document.getElementById('result-mount').style.display = 'block';
+      document.getElementById('result-mount').innerHTML = `
+        <div class="result-box">
+          <div class="result-score">${score}/${total}</div>
+          <p style="font-weight:600; margin-top:8px;">${passed ? 'Selamat, kamu lulus! 🎉' : 'Belum lulus, yuk coba lagi.'}</p>
+          <p style="color:var(--ink-soft); font-size:13.5px; margin-bottom:20px;">${passed ? 'Sertifikatmu sudah bisa diambil.' : `Nilai minimal kelulusan adalah ${Math.ceil(total*PASS_RATIO)} dari ${total}.`}</p>
+          <button class="btn btn-primary" onclick="${passed ? "MG.setLulus(); window.location.href='sertifikat.html'" : "window.location.href='evaluasi.html'"}">${passed ? 'Ambil Sertifikat' : 'Ulangi Evaluasi'}</button>
+        </div>`;
+    });
+  }
+
+  renderTabbar('belajar');
+</script>
+</body>
+</html>

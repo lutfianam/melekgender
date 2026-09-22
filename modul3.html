@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modul 3: Sejarah Munculnya Gender — Melek Gender</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <div class="pad">
+    <div class="crumb">Modul 3 dari 4</div>
+    <h1 class="h-title reveal">Sejarah Munculnya Gender</h1>
+
+    <div class="content-block">
+      <p class="reveal" style="transition-delay:0ms">Perjuangan kesetaraan gender di Indonesia punya akar sejarah panjang. <b>R.A. Kartini</b> lewat surat-suratnya memperjuangkan hak perempuan mendapat pendidikan yang setara di zaman kolonial, saat perempuan pribumi umumnya hanya diperbolehkan mengurus rumah tangga.</p>
+      <p class="reveal" style="transition-delay:90ms"><b>Ir. Soekarno</b> melalui buku <i>Sarinah</i> turut membahas peran perempuan dalam perjuangan bangsa, menegaskan bahwa kemerdekaan Indonesia juga harus membebaskan perempuan dari belenggu ketertindasan.</p>
+      <p class="reveal" style="transition-delay:180ms">Di lingkungan Nahdlatul Ulama, tokoh seperti <b>Hj. Umroh Mahfudzoh</b> menjadi salah satu figur penting dalam sejarah pergerakan perempuan NU, menunjukkan bahwa perjuangan kesetaraan gender juga punya akar kuat dalam tradisi pesantren, bukan hanya datang dari pemikiran Barat.</p>
+      <p class="reveal" style="transition-delay:270ms">Memahami sejarah ini penting agar kader tidak keliru menganggap isu gender sebagai "wacana impor" yang asing bagi budaya Indonesia — padahal perjuangannya sudah ada jauh sebelum istilah "gender" populer digunakan.</p>
+      <!-- ====================================================
+           SLOT INFOGRAFIS / GAMBAR / VIDEO
+           Hapus <div class="media-slot"> di bawah ini, lalu
+           pakai salah satu contoh kode berikut sesuai media
+           yang Anda punya. File gambar/video taruh di folder
+           assets/modul/.
+
+           Contoh GAMBAR/INFOGRAFIS:
+           <div class="media-embed">
+             <img src="assets/modul/modul3-diagram.png" alt="Deskripsikan gambar di sini">
+             <p class="media-caption">Sumber: (tulis sumber gambar/infografis)</p>
+           </div>
+
+           Contoh VIDEO (file sendiri, taruh di assets/modul/):
+           <div class="media-embed">
+             <video src="assets/modul/modul3-diagram.mp4" controls></video>
+             <p class="media-caption">Video: (judul/keterangan video)</p>
+           </div>
+
+           Contoh VIDEO YouTube (ganti VIDEO_ID dengan ID video):
+           <div class="media-embed" style="aspect-ratio:16/9;">
+             <iframe width="100%" height="100%" style="border:0; border-radius:var(--radius);"
+               src="https://www.youtube.com/embed/VIDEO_ID" title="Video pembelajaran"
+               allowfullscreen></iframe>
+           </div>
+      ==================================================== -->
+      <div class="media-slot reveal" style="transition-delay:360ms">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 15l4.5-4.5a2 2 0 0 1 2.8 0L15 15"/><path d="M13 13l1.5-1.5a2 2 0 0 1 2.8 0L21 15"/><circle cx="8" cy="8.5" r="1.4"/></svg>
+        <span>Sisipkan infografis/gambar/video pendukung materi di sini.<br>Lihat komentar kode di atas slot ini untuk contoh cara pasangnya.</span>
+      </div>
+
+    </div>
+
+    <div id="quiz-mount"></div>
+    <div id="result-mount" style="display:none;"></div>
+
+    <div class="btn-row" id="nav-buttons" style="margin-top:18px;">
+      <button class="btn btn-ghost" onclick="location.reload()">Ulangi</button>
+      <button class="btn btn-primary" id="next-btn" style="flex:1.4;" disabled>Lanjut ke Modul 4</button>
+    </div>
+  </div>
+  <div id="tabbar-slot"></div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  MG.requireIdentity();
+  initScrollReveal();
+
+  const questions = [
+    { q: 'R.A. Kartini dikenal memperjuangkan hak perempuan dalam hal...', options: ['Pendidikan yang setara', 'Jabatan militer', 'Hak memilih presiden', 'Kepemilikan tanah'], correct: 0 },
+    { q: 'Buku "Sarinah" yang membahas peran perempuan dalam perjuangan bangsa ditulis oleh...', options: ['R.A. Kartini', 'Ir. Soekarno', 'K.H. Hasyim Asy\'ari', 'Cut Nyak Dien'], correct: 1 },
+    { q: 'Tokoh perempuan NU yang menjadi figur penting sejarah pergerakan perempuan NU adalah...', options: ['Hj. Umroh Mahfudzoh', 'Dewi Sartika', 'Cut Meutia', 'Rohana Kudus'], correct: 0 },
+  ];
+
+  renderQuiz(document.getElementById('quiz-mount'), questions, (score, total) => {
+    document.getElementById('quiz-mount').style.display = 'none';
+    document.getElementById('result-mount').style.display = 'block';
+    document.getElementById('result-mount').innerHTML = `
+      <div class="result-box">
+        <div class="result-score">${score}/${total}</div>
+        <p style="color:var(--ink-soft); font-size:13.5px;">${score === total ? 'Mantap, semua benar!' : 'Yuk baca ulang materi di atas kalau masih ada yang kurang pas.'}</p>
+      </div>`;
+    MG.markModuleDone(3);
+    document.getElementById('next-btn').disabled = false;
+  });
+
+  document.getElementById('next-btn').addEventListener('click', () => window.location.href = 'modul4.html');
+  renderTabbar('belajar');
+</script>
+</body>
+</html>

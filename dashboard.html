@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard — Melek Gender</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <div class="pad" style="padding-bottom:8px;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+      <div>
+        <div class="greet" id="greet-nama">Halo!</div>
+        <div class="greet-sub" id="greet-ranting"></div>
+      </div>
+      <button class="btn btn-ghost" style="width:auto; padding:8px 14px; font-size:12.5px; margin-top:0;" onclick="MG.logout()">Keluar</button>
+    </div>
+
+    <div id="module-list"></div>
+
+    <button class="btn btn-primary" id="cta-btn">Lanjutkan Belajar</button>
+  </div>
+  <div id="tabbar-slot"></div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  MG.requireIdentity();
+
+  const identity = MG.getIdentity();
+  document.getElementById('greet-nama').textContent = `Halo, ${identity.nama}! 👋`;
+  document.getElementById('greet-ranting').textContent = identity.ranting;
+
+  const modulNama = [
+    'Pengertian Gender dan Seks',
+    'Pengalaman Biologis Perempuan',
+    'Sejarah Munculnya Gender',
+    'Pandangan Gender dalam Islam',
+  ];
+
+  const listEl = document.getElementById('module-list');
+  listEl.innerHTML = modulNama.map((nama, i) => {
+    const n = i + 1;
+    const done = MG.isModuleDone(n);
+    return `<a class="mod-card ${done ? 'done' : ''}" href="modul${n}.html">
+        <div class="mod-dot ${done ? 'done' : 'todo'}">${done ? '✓' : n}</div>
+        <div>
+          <div class="mod-txt-t">Modul ${n} · ${nama}</div>
+          <div class="mod-txt-s">${done ? 'Selesai' : 'Belum dimulai'}</div>
+        </div>
+      </a>`;
+  }).join('');
+
+  const ctaBtn = document.getElementById('cta-btn');
+  if (MG.isLulus()) {
+    ctaBtn.textContent = 'Lihat Sertifikat';
+    ctaBtn.onclick = () => window.location.href = 'sertifikat.html';
+  } else if (MG.allModulesDone()) {
+    ctaBtn.textContent = 'Ikuti Evaluasi Akhir';
+    ctaBtn.onclick = () => window.location.href = 'evaluasi.html';
+  } else {
+    ctaBtn.textContent = 'Lanjutkan Belajar';
+    ctaBtn.onclick = () => window.location.href = MG.nextModuleUrl();
+  }
+
+  renderTabbar('beranda');
+</script>
+</body>
+</html>

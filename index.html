@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melek Gender — Belajar Studi Gender I untuk Kader MAKESTA</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="splash" class="splash">
+  <img src="assets/logo.png" alt="Melek Gender" class="splash-logo">
+  <div class="splash-text">Melek Gender</div>
+</div>
+
+<div class="app">
+  <div class="pad">
+    <div class="brand-row">
+      <img src="assets/logo.png" alt="Logo Melek Gender">
+      <span class="brand-name">Melek Gender</span>
+    </div>
+
+    <div class="illus">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#14532D" stroke-width="1.6">
+        <path d="M12 21c-4-3-8-6-8-10a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 4-4 7-8 10z"/>
+      </svg>
+    </div>
+
+    <h1 class="h-title reveal">Belajar gender, siap jadi kader</h1>
+    <p class="h-sub reveal">Materi Studi Gender I untuk kader MAKESTA IPNU IPPNU, bisa dipelajari kapan saja lewat HP — sebelum, saat, maupun setelah forum MAKESTA.</p>
+
+    <button class="btn btn-primary" onclick="location.href='form.html'">Mulai Belajar</button>
+
+    <div class="navlinks">
+      <a href="galeri.html">Galeri Referensi</a>
+      <a href="tentang.html">Tentang</a>
+      <a href="kebijakan-privasi.html">Kebijakan Privasi</a>
+    </div>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  // Splash tampil sebentar (mirip Instagram) sebelum menentukan
+  // arah: kader lama -> dashboard, kader baru -> tetap di sini.
+  const SPLASH_MS = 900;
+  const goDashboard = MG.hasIdentity();
+
+  setTimeout(() => {
+    if (goDashboard) {
+      window.location.href = 'dashboard.html';
+      return;
+    }
+    document.getElementById('splash').classList.add('hide');
+    initScrollReveal();
+  }, SPLASH_MS);
+</script>
+</body>
+</html>

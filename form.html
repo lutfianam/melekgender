@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kenalan Dulu — Melek Gender</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <div class="pad">
+    <h1 class="h-title">Kenalan dulu, yuk</h1>
+    <p class="h-sub">Supaya sertifikatmu nanti tertulis nama yang benar, dan kami bisa tahu ranting mana saja yang aktif belajar.</p>
+
+    <form id="identity-form" novalidate>
+      <label class="field-label" for="nama">Nama Lengkap</label>
+      <input class="field" type="text" id="nama" name="nama" placeholder="Tulis nama lengkapmu" required>
+      <div class="err" id="err-nama">Nama wajib diisi ya.</div>
+
+      <label class="field-label" for="ranting">Ranting / Komisariat Asal</label>
+      <input class="field" type="text" id="ranting" name="ranting" list="ranting-suggestions" placeholder="Contoh: PR IPNU IPPNU Desa Kwadungan" autocomplete="off" required>
+      <datalist id="ranting-suggestions">
+        <option value="PR IPNU IPPNU Desa Kwadungan">
+        <option value="PR IPNU IPPNU Desa Kranggan">
+        <option value="PR IPNU IPPNU Desa Menggoro">
+        <option value="PK IPNU IPPNU (isi nama sekolah/madrasah)">
+      </datalist>
+      <div class="err" id="err-ranting">Ranting/komisariat wajib diisi ya.</div>
+
+      <div class="consent-row">
+        <input type="checkbox" id="consent" required>
+        <label for="consent">Saya setuju data ini digunakan sesuai <a href="kebijakan-privasi.html" target="_blank">Kebijakan Privasi</a> Melek Gender.</label>
+      </div>
+      <div class="err" id="err-consent">Centang dulu ya sebelum lanjut.</div>
+
+      <button type="submit" class="btn btn-primary">Lanjut ke Beranda</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  document.getElementById('identity-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const nama = document.getElementById('nama').value.trim();
+    const ranting = document.getElementById('ranting').value.trim();
+    const setuju = document.getElementById('consent').checked;
+
+    document.getElementById('err-nama').style.display = nama ? 'none' : 'block';
+    document.getElementById('err-ranting').style.display = ranting ? 'none' : 'block';
+    document.getElementById('err-consent').style.display = setuju ? 'none' : 'block';
+
+    if (!nama || !ranting || !setuju) return;
+
+    // 1. Simpan identitas ke cookie (sisi klien)
+    MG.saveIdentity(nama, ranting);
+
+    // 2. Kirim ke Google Sheet HANYA karena kader sudah mencentang setuju
+    MG.submitToGoogleForm(nama, ranting);
+
+    window.location.href = 'dashboard.html';
+  });
+</script>
+</body>
+</html>

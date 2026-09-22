@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sertifikat — Melek Gender</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <div class="pad" id="cert-print">
+    <div id="not-lulus" style="display:none; text-align:center; padding:30px 0;">
+      <p style="color:var(--ink-soft); margin-bottom:16px;">Kamu belum menyelesaikan Evaluasi Akhir dengan nilai lulus.</p>
+      <button class="btn btn-primary" onclick="location.href='evaluasi.html'">Ikuti Evaluasi Akhir</button>
+    </div>
+
+    <div id="cert-content" style="display:none;">
+      <div class="cert">
+        <div class="cert-eyebrow">SERTIFIKAT PENYELESAIAN</div>
+        <div class="cert-title">Melek Gender</div>
+        <p style="font-size:12.5px; color:var(--ink-soft); margin:4px 0 0;">Diberikan kepada</p>
+        <div class="cert-name" id="cert-nama">—</div>
+        <div class="cert-ranting" id="cert-ranting">—</div>
+        <div class="cert-desc">atas keberhasilannya menyelesaikan seluruh materi<br><b>Studi Gender I</b> berbasis microlearning</div>
+        <div class="cert-date" id="cert-date"></div>
+      </div>
+      <button class="btn btn-primary" id="btn-download-img">Unduh sebagai Gambar (PNG)</button>
+      <button class="btn btn-ghost" style="margin-top:8px;" onclick="window.print()">Cetak / Simpan sebagai PDF</button>
+      <p style="font-size:11px; color:var(--ink-soft); text-align:center; margin-top:10px;">
+        Mau desain sertifikat versi kamu sendiri? Baca <b>CERTIFICATE.md</b> di folder proyek.
+      </p>
+    </div>
+  </div>
+  <div id="tabbar-slot"></div>
+</div>
+
+<script src="js/app.js"></script>
+<script>
+  MG.requireIdentity();
+
+  if (!MG.isLulus()) {
+    document.getElementById('not-lulus').style.display = 'block';
+  } else {
+    const identity = MG.getIdentity();
+    const tanggal = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('cert-nama').textContent = identity.nama;
+    document.getElementById('cert-ranting').textContent = identity.ranting;
+    document.getElementById('cert-date').textContent = tanggal;
+    document.getElementById('cert-content').style.display = 'block';
+    document.getElementById('btn-download-img').addEventListener('click', () => {
+      downloadCertificateImage(identity.nama, identity.ranting, tanggal);
+    });
+  }
+
+  renderTabbar('sertifikat');
+</script>
+</body>
+</html>

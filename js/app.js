@@ -111,7 +111,7 @@ const MG = {
   ENTRY_RANTING: 'entry.222222222',
 
   submitToGoogleForm(nama, ranting) {
-    if (MG.GOOGLE_FORM_ACTION.includes('GANTI_DENGAN_ID_FORM_ANDA')) {
+    if (MG.GOOGLE_FORM_ACTION.includes('1FAIpQLSfbGxG81aRLff29qJ8h58uhf36mYW5dHAad3ryLoM6AOQfBDw')) {
       console.warn('[Melek Gender] Google Form belum dikonfigurasi — lihat komentar TODO GANTI di js/app.js. Data hanya tersimpan di cookie perangkat ini.');
       return;
     }

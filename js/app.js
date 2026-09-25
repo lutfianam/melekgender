@@ -3,19 +3,9 @@
    Logika inti: cookie identitas, progres modul, status lulus,
    pengiriman data (dengan persetujuan) ke Google Form/Sheet.
 
-   >>> BAGIAN YANG WAJIB ANDA SESUAIKAN <<<
-   Cari komentar "TODO GANTI" di bawah ini.
    =========================================================== */
 
 const MG = {
-  /* ---------- Helper penyimpanan dasar ----------
-     Catatan teknis: disebut "cookie" di flowchart & proposal
-     karena itu istilah konseptual yang lebih dikenal ("data
-     tersimpan di perangkat pengguna"). Implementasi aslinya
-     memakai localStorage, karena document.cookie tidak
-     konsisten saat situs dibuka langsung dari file lokal
-     (file://) — localStorage bekerja andal baik saat dites
-     lokal maupun setelah di-deploy ke GitHub Pages (https://). */
   setCookie(name, value) {
     try { localStorage.setItem(name, value); } catch (e) { console.warn('Storage tidak tersedia:', e); }
   },
@@ -91,13 +81,6 @@ const MG = {
     return 'evaluasi.html';
   },
 
-  /* ---------- Status kelulusan evaluasi akhir ----------
-     PENTING: cookie ini hanya untuk KENYAMANAN pengguna
-     (supaya tidak mengulang evaluasi tiap buka web), BUKAN
-     mekanisme anti-kecurangan — nilainya bisa diubah manual
-     lewat DevTools browser. Data pretest-posttest resmi untuk
-     penelitian tetap diambil terpisah & diawasi langsung saat
-     ujicoba lapangan (lihat proposal bagian Metodologi). */
   isLulus() {
     return MG.getCookie('mg_lulus') === '1';
   },
@@ -123,8 +106,8 @@ const MG = {
         "?entry..." tapi ganti "/viewform" jadi "/formResponse".
      4. Ganti ENTRY_NAMA dan ENTRY_RANTING dengan angka entry.xxx
         yang sesuai dari link pre-filled tadi.                     */
-  GOOGLE_FORM_ACTION: 'https://docs.google.com/forms/d/e/GANTI_DENGAN_ID_FORM_ANDA/formResponse',
-  ENTRY_NAMA: 'entry.111111111',
+  GOOGLE_FORM_ACTION: 'https://docs.google.com/forms/d/e/1FAIpQLSfbGxG81aRLff29qJ8h58uhf36mYW5dHAad3ryLoM6AOQfBDw/formResponse',
+  ENTRY_NAMA: 'entry.1945700983',
   ENTRY_RANTING: 'entry.222222222',
 
   submitToGoogleForm(nama, ranting) {
